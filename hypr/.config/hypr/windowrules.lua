@@ -57,3 +57,13 @@ o.window("^Proton Pass$", {
 	center = true,
 })
 
+-- PIP
+hl.window_rule({
+	match = {
+		class = "^(zen)$",
+		title = "^(Picture-in-Picture)$",
+		tag = "pip*"
+	},
+
+	tile = true,
+})
