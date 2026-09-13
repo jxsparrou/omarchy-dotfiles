@@ -48,7 +48,7 @@ hl.unbind("SUPER + SHIFT + SLASH")
 -- Bind Proton Pass to Super Shift P
 hl.unbind("SUPER + SHIFT + P")
 o.bind("SUPER + SHIFT + P", "Proton Pass", {
-    launch = "proton-pass"
+    launch = "proton-pass --ozone-platform=x11"
 })
 
 -- Vesktop
