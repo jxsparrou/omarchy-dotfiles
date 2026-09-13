@@ -30,11 +30,11 @@
 -- o.bind("SUPER + PERIOD", nil, "omarchy-shell shell toggle omarchy.emojis")
 
 
--- Rebind for Omawrite to Zed
-hl.unbind("SUPER + SHIFT + W")
-o.bind("SUPER + SHIFT + W", "Zed", {
-    launch = "zeditor"
-})
+-- Rebind for Omawrite to Zed - edited out because i decided i wanted to give it a try
+-- hl.unbind("SUPER + SHIFT + W")
+-- o.bind("SUPER + SHIFT + W", "Zed", {
+--    launch = "zeditor"
+-- })
 
 -- Steam
 hl.unbind("SUPER + SHIFT + S")
