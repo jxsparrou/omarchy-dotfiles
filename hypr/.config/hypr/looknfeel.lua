@@ -1,5 +1,33 @@
 -- Change the default Omarchy look'n'feel.
 
+hl.config({
+  general = {
+    gaps_in = 1,
+    gaps_out = 3,
+    border_size = 1,
+    resize_on_border = true,
+
+	col = {
+		
+	}
+    
+  },
+
+  decoration = {
+  	rounding = 2,
+
+  	blur = {
+  		enabled = true,	
+  	},
+
+  	shadow = {
+  		enabled = true,
+  	},
+
+  }
+})
+
+
 -- https://wiki.hypr.land/Configuring/Basics/Variables/#general
 -- hl.config({
 --   general = {
