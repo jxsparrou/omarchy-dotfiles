@@ -62,3 +62,8 @@ o.bind("SUPER + Q", "Close Window", hl.dsp.window.close())
 
 -- Add a browser key
 o.bind("SUPER + W", "Zen Web Browser", { omarchy = "browser" })
+
+-- Calculator
+hl.unbind("SUPER + SHIFT + C")
+hl.unbind("SUPER + CTRL + Q")
+o.bind("SUPER + SHIFT + C", "Calculator", { launch = "omacalc" })

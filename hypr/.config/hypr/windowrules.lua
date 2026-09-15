@@ -67,3 +67,13 @@ hl.window_rule({
 
 	tile = true,
 })
+
+-- Obsidian 
+hl.window_rule({
+	match = {
+		class = "^(md\\.obsidian\\.Obsidian)$"
+	},
+
+	tile = false,
+	size = {"monitor_w*0.5", "monitor_h*0.6" },
+})
