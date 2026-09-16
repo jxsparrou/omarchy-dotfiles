@@ -42,15 +42,6 @@ o.bind("SUPER + SHIFT + S", "Steam", {
     launch = "steam"
 })
 
--- Unbind 1password because why would I pay for that
-hl.unbind("SUPER + SHIFT + SLASH")
-
--- Bind Proton Pass to Super Shift P
-hl.unbind("SUPER + SHIFT + P")
-o.bind("SUPER + SHIFT + P", "Proton Pass", {
-    launch = "proton-pass --ozone-platform=x11"
-})
-
 -- Vesktop
 o.bind("SUPER + SHIFT + V" , "Vesktop/Discord", {
     launch = "vesktop"

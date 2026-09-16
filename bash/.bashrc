@@ -14,3 +14,6 @@ source "$OMARCHY_PATH/default/bash/rc"
 # alias p='python'
 
 alias ls='eza -lah --group-directories-first --icons=auto'
+
+export EDITOR=micro
+export VISUAL=micro
