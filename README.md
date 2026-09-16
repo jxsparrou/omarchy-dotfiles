@@ -22,6 +22,10 @@ mirrors the path it should have below the home directory.
 | --- | --- | --- |
 | `bash` | `~/.bashrc` | Bash startup customizations |
 | `hypr` | `~/.config/hypr/` | Hyprland and related desktop configuration |
+| `home-desktop` | `~/.config/hypr/monitors.lua` | Home desktop computer specific monitor layout |
+| `macbookair-m1` | `~/.config/hypr/monitors.lua` | M1 macbookair specific monitor layout.
+| `work-laptop` | `~/.config/hypr/monitors.lua` | Work laptop specific monitor layout.
+
 
 ## Bash
 
