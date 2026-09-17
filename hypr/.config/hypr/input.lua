@@ -62,3 +62,8 @@ hl.gesture({
 	direction = "horizontal",
 	action = "workspace",
 })
+
+hl.device({
+	name = "wacom-hid-5367-finger",
+	enabled = false,
+})
