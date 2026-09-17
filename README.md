@@ -22,9 +22,8 @@ mirrors the path it should have below the home directory.
 | --- | --- | --- |
 | `bash` | `~/.bashrc` | Bash startup customizations |
 | `hypr` | `~/.config/hypr/` | Hyprland and related desktop configuration |
-| `home-desktop` | `~/.config/hypr/monitors.lua` | Home desktop computer specific monitor layout |
-| `macbookair-m1` | `~/.config/hypr/monitors.lua` | M1 macbookair specific monitor layout.
-| `work-laptop` | `~/.config/hypr/monitors.lua` | Work laptop specific monitor layout.
+| `home-desktop` | `~/.config/hypr/monitors.lua`, `~/.config/mise/`, and `~/.config/environment.d/` | Home desktop-specific settings |
+| `macbookair` | `~/.config/hypr/monitors.lua` | M1 MacBook Air monitor layout |
 
 
 ## Bash
@@ -57,9 +56,12 @@ enables direct scanout (`direct_scanout = 2`). These settings are generally
 useful for games and fullscreen content where the compositor can present a
 window directly to the display.
 
-### `hypr/.config/hypr/monitors.lua`
+### Machine-Specific `monitors.lua`
 
-Defines two DisplayPort outputs and a scale factor of 1:
+Monitor layouts live in machine-specific Stow packages rather than the shared
+`hypr` package. The home desktop layout at
+`home-desktop/.config/hypr/monitors.lua` defines two DisplayPort outputs and a
+scale factor of 1:
 
 - `DP-1` uses its preferred resolution and refresh rate at position `0x0`.
 - `DP-2` uses `2560x1440@144Hz` and starts at `2560x0`, placing it directly to
@@ -67,6 +69,7 @@ Defines two DisplayPort outputs and a scale factor of 1:
 - `GDK_SCALE` is set to `1` for GTK applications.
 
 Output names and modes must match `hyprctl monitors all` on the target machine.
+Stow exactly one machine package alongside `bash` and `hypr`.
 
 ### `hypr/.config/hypr/windowrules.lua`
 
@@ -232,10 +235,13 @@ of the way without deleting them.
 
 ```bash
 backup_dir="$HOME/dotfiles-backup-$(date +%Y%m%d-%H%M%S)"
-mkdir -p "$backup_dir/.config"
+mkdir -p "$backup_dir/.config/mise" "$backup_dir/.config/environment.d"
 
 [[ -e "$HOME/.bashrc" || -L "$HOME/.bashrc" ]] && mv "$HOME/.bashrc" "$backup_dir/.bashrc"
 [[ -e "$HOME/.config/hypr" || -L "$HOME/.config/hypr" ]] && mv "$HOME/.config/hypr" "$backup_dir/.config/hypr"
+[[ -e "$HOME/.config/mise/config.toml" || -L "$HOME/.config/mise/config.toml" ]] && mv "$HOME/.config/mise/config.toml" "$backup_dir/.config/mise/config.toml"
+[[ -e "$HOME/.config/environment.d/nvidia-shader-cache.conf" || -L "$HOME/.config/environment.d/nvidia-shader-cache.conf" ]] && mv "$HOME/.config/environment.d/nvidia-shader-cache.conf" "$backup_dir/.config/environment.d/nvidia-shader-cache.conf"
+[[ -e "$HOME/.config/environment.d/omarchy-firefox-wayland.conf" || -L "$HOME/.config/environment.d/omarchy-firefox-wayland.conf" ]] && mv "$HOME/.config/environment.d/omarchy-firefox-wayland.conf" "$backup_dir/.config/environment.d/omarchy-firefox-wayland.conf"
 ```
 
 Keep the printed `backup_dir` value or note the newly created directory. If
@@ -247,14 +253,16 @@ use the removal command below instead.
 Preview the links Stow would create, then install them:
 
 ```bash
-stow --no --verbose --target="$HOME" bash hypr
-stow --verbose --target="$HOME" bash hypr
+stow --no --verbose --target="$HOME" bash hypr home-desktop
+stow --verbose --target="$HOME" bash hypr home-desktop
 ```
 
 The first command is a dry run. The second creates symlinks in the home
-directory pointing back to this clone. Changes committed or pulled into this
-repository take effect through those links; reload Hyprland after changing its
-configuration.
+directory pointing back to this clone. Replace `home-desktop` with `macbookair`
+when installing on the MacBook. If existing files have not been backed up and
+you intentionally want Stow to take them into the package, add `--adopt` to
+the Stow command. Changes committed or pulled into this repository take effect
+through those links; reload Hyprland after changing its configuration.
 
 ### Back up the repository
 
@@ -263,7 +271,7 @@ remote clone for an off-machine backup:
 
 ```bash
 git status
-git add bash hypr README.md
+git add .
 git commit -m "Update dotfiles"
 git push
 ```
@@ -274,11 +282,14 @@ First remove only the links Stow created, then move the saved files back. Set
 `backup_dir` to the actual backup directory created earlier.
 
 ```bash
-stow --delete --verbose --target="$HOME" bash hypr
+stow --delete --verbose --target="$HOME" bash hypr home-desktop
 
 backup_dir="$HOME/dotfiles-backup-YYYYMMDD-HHMMSS"
 [[ -e "$backup_dir/.bashrc" || -L "$backup_dir/.bashrc" ]] && mv "$backup_dir/.bashrc" "$HOME/.bashrc"
 [[ -e "$backup_dir/.config/hypr" || -L "$backup_dir/.config/hypr" ]] && mv "$backup_dir/.config/hypr" "$HOME/.config/hypr"
+[[ -e "$backup_dir/.config/mise/config.toml" || -L "$backup_dir/.config/mise/config.toml" ]] && mkdir -p "$HOME/.config/mise" && mv "$backup_dir/.config/mise/config.toml" "$HOME/.config/mise/config.toml"
+[[ -e "$backup_dir/.config/environment.d/nvidia-shader-cache.conf" || -L "$backup_dir/.config/environment.d/nvidia-shader-cache.conf" ]] && mkdir -p "$HOME/.config/environment.d" && mv "$backup_dir/.config/environment.d/nvidia-shader-cache.conf" "$HOME/.config/environment.d/nvidia-shader-cache.conf"
+[[ -e "$backup_dir/.config/environment.d/omarchy-firefox-wayland.conf" || -L "$backup_dir/.config/environment.d/omarchy-firefox-wayland.conf" ]] && mkdir -p "$HOME/.config/environment.d" && mv "$backup_dir/.config/environment.d/omarchy-firefox-wayland.conf" "$HOME/.config/environment.d/omarchy-firefox-wayland.conf"
 ```
 
 `stow --delete` removes symlinks but never deletes the files inside this
