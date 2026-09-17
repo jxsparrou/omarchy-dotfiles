@@ -142,35 +142,79 @@ preventing false editor diagnostics.
 
 ## Lua and Hyprland Syntax
 
-Hyprland's Omarchy configuration uses Lua. Lua comments begin with `--`.
+Hyprland's Omarchy configuration uses Lua. Lua comments begin with `--`; use
+`local` for values that are only needed within the current file.
 
 ```lua
--- A local variable stores a value for this file.
-local gamingApps = "^(steam_app.*|gamescope)$"
+-- Reuse a value within this file.
+local application_class = "^example-app$"
 
--- A function call passes a table, written with curly braces.
+-- A table supplies named options to a helper.
+hl.config({
+  input = {
+    kb_layout = "us",
+  },
+})
+```
+
+- Strings use quotes; numbers are unquoted; `true`, `false`, and `nil` are
+  Boolean and empty values.
+- `{ ... }` creates a table. Use it for nested settings, option lists, and
+  function arguments with named fields.
+- `require("hypr.monitors")` loads `hypr/monitors.lua`. Dots in a module name
+  map to path separators. `dofile(path)` executes a Lua file at an explicit
+  path and is used by the entry point before modules are available.
+- `hl` provides lower-level Hyprland helpers. `o` provides Omarchy convenience
+  helpers for common configuration.
+
+### Common Patterns
+
+```lua
+-- Add or override a Hyprland setting.
+hl.config({
+  misc = { vrr = 2 },
+})
+
+-- Configure an output. Use `hyprctl monitors all` to discover its name and modes.
+hl.monitor({
+  output = "DP-1",
+  mode = "preferred",
+  position = "0x0",
+  scale = "1",
+})
+
+-- Keep a workspace on a particular output.
 hl.workspace_rule({
   workspace = "1",
   monitor = "DP-1",
   persistent = true,
 })
+
+-- Add a binding. Unbind a default first when replacing it.
+hl.unbind("SUPER + SHIFT + T")
+o.bind("SUPER + SHIFT + T", "Open terminal", { launch = "ghostty" })
+
+-- Apply simple rules to windows whose class matches a regular expression.
+o.window("^example-app$", {
+  workspace = "3",
+  float = true,
+})
+
+-- Use a full rule when matching more than just the class.
+hl.window_rule({
+  match = {
+    class = "^example-app$",
+    title = "^Settings$",
+  },
+  center = true,
+  size = { "monitor_w*0.5", "monitor_h*0.6" },
+})
 ```
 
-- `local` limits a variable to the current file.
-- Strings use quotes; `true` and `false` are Boolean values.
-- `{ ... }` creates a Lua table, used here as a named settings object.
-- `require("hypr.monitors")` loads a Lua module. Dots map to path separators,
-  so it loads `hypr/monitors.lua` from the configured Lua search path.
-- `dofile(path)` executes a Lua file at an explicit path; the entry point uses
-  it to load Omarchy's bootstrap before modules are available.
-- `hl` is Omarchy's lower-level Hyprland helper. Examples include
-  `hl.monitor`, `hl.workspace_rule`, `hl.unbind`, and `hl.config`.
-- `o` is Omarchy's convenience helper. `o.bind` declares a named keybinding,
-  while `o.window` applies rules to windows matching a class pattern.
-- Patterns such as `^(steam_app.*|gamescope)$` match a full application class:
-  `^` and `$` anchor the beginning and end, `|` means "or", and `.*` matches
-  any sequence of characters. The escaped `\\.` in `^XIVLauncher\\.Core$`
-  matches a literal period.
+Window match fields accept regular expressions. `^` and `$` match the start
+and end of a value, `|` means "or", and `.*` matches any sequence of
+characters. In a Lua string, write a literal regex backslash as `\\`, such as
+`"^example\\.app$"` to match a period.
 
 Refer to `omarchy menu keybindings --print` for the active binding list and
 the [Hyprland documentation](https://wiki.hypr.land/Configuring/Start/) for
