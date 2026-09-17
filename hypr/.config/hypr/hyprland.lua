@@ -28,6 +28,9 @@ require("default.hypr.toggles")
 --Custom Window Rules made by me
 require("hypr.windowrules")
 
+-- Custom workspace rules per machine
+require("hypr.workspaces")
+
 -- Add any other personal Hyprland configuration below.
 -- o.window("qemu", { workspace = "5" })
 
