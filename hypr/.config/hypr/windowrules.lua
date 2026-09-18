@@ -59,3 +59,13 @@ hl.window_rule({
 	tile = false,
 	size = {"monitor_w*0.5", "monitor_h*0.6" },
 })
+
+-- RustDesk remote sessions
+hl.window_rule({
+    match = {
+        class = "^(rustdesk)$",
+        title = ".* - Remote Desktop - RustDesk$",
+    },
+
+    workspace = "6",
+})
