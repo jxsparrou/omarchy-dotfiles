@@ -58,3 +58,6 @@ o.bind("SUPER + W", "Zen Web Browser", { omarchy = "browser" })
 hl.unbind("SUPER + SHIFT + C")
 hl.unbind("SUPER + CTRL + Q")
 o.bind("SUPER + SHIFT + C", "Calculator", { launch = "omacalc" })
+
+-- Creating a suspend button. Since Lock is super ctrl l, i think I am going to add shift on the same key
+o.bind("SUPER + SHIFT + CTRL + L", "Suspend", {launch = "systemctl suspend"})
