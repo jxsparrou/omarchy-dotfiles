@@ -69,3 +69,9 @@ hl.window_rule({
 
     workspace = "6",
 })
+
+-- Changing the default Steam window size
+o.window({ class = "steam", title = "Steam" }, {
+  center = true,
+  size = { "monitor_w*0.5", "monitor_h*0.6" }, -- e.g. { 1400, 900 } or { "monitor_w*0.7", "monitor_h*0.75" }
+})
