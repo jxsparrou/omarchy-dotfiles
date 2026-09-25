@@ -17,3 +17,5 @@ alias ls='eza -lah --group-directories-first --icons=auto'
 
 export EDITOR=micro
 export VISUAL=micro
+
+export OMARCHY_SCREENSHOT_DIR="$HOME/Pictures/Screenshots"
