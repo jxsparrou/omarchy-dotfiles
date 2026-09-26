@@ -74,6 +74,7 @@ o.window("com.thisisgm.flea.picker", { tag = "+floating-window" })
 -- flea --picker: end.
 
 
+
 -- move to silently moving windows between workspaces
 for workspace = 1, 10 do
   local key = "code:" .. tostring(workspace + 9)
