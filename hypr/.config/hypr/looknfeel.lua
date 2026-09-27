@@ -5,12 +5,7 @@ hl.config({
     gaps_in = 1,
     gaps_out = 3,
     border_size = 1,
-    resize_on_border = true,
-
-	col = {
-		
-	}
-    
+    resize_on_border = true,    
   },
 
   decoration = {
