@@ -19,3 +19,8 @@ export EDITOR=micro
 export VISUAL=micro
 
 export OMARCHY_SCREENSHOT_DIR="$HOME/Pictures/Screenshots"
+
+# Added by LM Studio CLI (lms)
+export PATH="$PATH:/home/john/.lmstudio/bin"
+# End of LM Studio CLI section
+
