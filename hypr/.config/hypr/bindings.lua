@@ -86,6 +86,7 @@ for workspace = 1, 10 do
   o.bind("SUPER + SHIFT + ALT + " .. key, "Move window to workspace " .. workspace, hl.dsp.window.move({ workspace = tostring(workspace) }))
 end
 
+<<<<<<< Updated upstream
 
 --new keyboard stuff
 --since there is no screenshot key, we need to add something for that
@@ -93,3 +94,5 @@ hl.unbind("SUPER + HOME")
 o.bind("SUPER + HOME", "Screenshot", "omarchy-capture-screenshot")
 
 o.bind("SUPER + CTRL + HOME", "OCR - Capture Text", "omarchy-capture-text")
+=======
+>>>>>>> Stashed changes
