@@ -1,5 +1,5 @@
-local LEFT_MON = "HDMI-A-1"
-local RIGHT_MON = "DP-3"
+local LEFT_MON = "DVI-I-2"
+local RIGHT_MON = "DVI-I-1"
 local SCREEN = "eDP-1"
 
 hl.workspace_rule({

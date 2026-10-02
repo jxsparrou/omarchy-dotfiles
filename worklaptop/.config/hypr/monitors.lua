@@ -14,8 +14,8 @@ local omarchy_gdk_scale = 1
 hl.env("GDK_SCALE", tostring(omarchy_gdk_scale))
 
 local SCREEN = "eDP-1"
-local LEFT_MON = "HDMI-A-1"
-local RIGHT_MON = "DP-3"
+local LEFT_MON = "DVI-I-2"
+local RIGHT_MON = "DVI-I-1"
 
 hl.monitor({
     output    = LEFT_MON,
@@ -33,7 +33,7 @@ hl.monitor({
 
 hl.monitor({
 	output = SCREEN,
-	mode = "1920x1200@60.00Hz",
+	mode = "1920x1080@60.00Hz",
 	position = "1280x1080",
 	scale = "1.5",
 })
